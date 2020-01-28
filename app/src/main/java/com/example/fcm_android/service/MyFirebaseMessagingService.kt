@@ -48,9 +48,9 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channelName = "asdf"
+            val channelName = "test"
             val channel =
-                NotificationChannel("ddd", channelName, NotificationManager.IMPORTANCE_HIGH)
+                NotificationChannel("test", channelName, NotificationManager.IMPORTANCE_HIGH)
             notificationManager.createNotificationChannel(channel)
         }
 

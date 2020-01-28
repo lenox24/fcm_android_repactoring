@@ -14,7 +14,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
 class MainActivity : AppCompatActivity() {
     private val topics = ArrayList<String>()
     private val tokens = ArrayList<String>()
