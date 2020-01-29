@@ -4,12 +4,12 @@ import android.content.Context
 import android.content.SharedPreferences
 
 class MySharedPreferences(context: Context) {
-    private val KEY = "token"
-    private val prefs: SharedPreferences = context.getSharedPreferences(KEY, 0)
+    private val tokenKey = "token"
+    private val prefs: SharedPreferences = context.getSharedPreferences(tokenKey, 0)
 
     var myToken: String
-        get() = prefs.getString(KEY, "").toString()
-        set(value) = prefs.edit().putString(KEY, value).apply()
+        get() = prefs.getString(tokenKey, "").toString()
+        set(value) = prefs.edit().putString(tokenKey, value).apply()
 
     var subA: Boolean
         get() = prefs.getBoolean("A", false)

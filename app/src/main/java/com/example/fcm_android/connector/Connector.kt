@@ -28,7 +28,5 @@ object Connector {
         api = retrofit.create(API::class.java)
     }
 
-    fun createApi(): API = retrofit.create(
-        API::class.java
-    )
+    fun createApi(): API = retrofit.create(API::class.java)
 }

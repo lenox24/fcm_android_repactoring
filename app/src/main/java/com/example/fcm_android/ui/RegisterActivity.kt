@@ -15,9 +15,10 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class RegisterActivity : AppCompatActivity() {
-
-    private val subT = "구독 중"
-    private val subF = "구독"
+    companion object {
+        private const val subT = "구독 중"
+        private const val subF = "구독"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +54,17 @@ class RegisterActivity : AppCompatActivity() {
         btn_c.setOnClickListener(subscribeListener)
     }
 
+    private fun initialize() {
+        if (App.prefs.subA)
+            btn_a.text = subT
+        if (App.prefs.subB)
+            btn_b.text = subT
+        if (App.prefs.subC)
+            btn_c.text = subT
+        if (App.prefs.register)
+            btn_register.isEnabled = false
+    }
+
     private fun sendToken(id: String, name: String) {
         val deviceToken: String = App.prefs.myToken
         if (deviceToken != "") {
@@ -69,17 +81,6 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun initialize() {
-        if (App.prefs.subA)
-            btn_a.text = subT
-        if (App.prefs.subB)
-            btn_b.text = subT
-        if (App.prefs.subC)
-            btn_c.text = subT
-        if (App.prefs.register)
-            btn_register.isEnabled = false
-    }
-
     private fun onSubscribe(topic: String, subscribe: String) {
         val messaging = FirebaseMessaging.getInstance()
         when (subscribe) {
@@ -87,14 +88,14 @@ class RegisterActivity : AppCompatActivity() {
                 messaging.subscribeToTopic(topic).addOnCompleteListener {
                     if (!it.isSuccessful)
                         Log.d("subscribeToTopic-Failure", "Subscribe Failed: $topic")
-                    Log.d("subscribeToTopic-Successful", "Subscribe Complete: $topic")
+                    else Log.d("subscribeToTopic-Successful", "Subscribe Complete: $topic")
                 }
             }
             "unsub" -> {
                 messaging.unsubscribeFromTopic(topic).addOnCompleteListener {
                     if (!it.isSuccessful)
                         Log.d("unsubscribeToTopic-Failure", "Subscribe Failed: $topic")
-                    Log.d("unsubscribeToTopic-Successful", "Subscribe Complete: $topic")
+                    else Log.d("unsubscribeToTopic-Successful", "Subscribe Complete: $topic")
                 }
             }
         }

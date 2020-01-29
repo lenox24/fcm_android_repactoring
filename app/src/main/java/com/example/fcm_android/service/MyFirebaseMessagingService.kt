@@ -14,21 +14,21 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
-    override fun onNewToken(p0: String) {
-        super.onNewToken(p0)
-        App.prefs.myToken = p0
+    override fun onNewToken(token: String) {
+        super.onNewToken(token)
+        App.prefs.myToken = token
     }
 
-    override fun onMessageReceived(p0: RemoteMessage) {
+    override fun onMessageReceived(message: RemoteMessage) {
         val messageTitle: String
         val messageBody: String
 
-        if (p0.notification != null) {
-            messageTitle = p0.notification!!.title.toString()
-            messageBody = p0.notification!!.body.toString()
+        if (message.notification != null) {
+            messageTitle = message.notification!!.title.toString()
+            messageBody = message.notification!!.body.toString()
         } else {
-            messageTitle = p0.data["title"].toString()
-            messageBody = p0.data["body"].toString()
+            messageTitle = message.data["title"].toString()
+            messageBody = message.data["body"].toString()
         }
 
         val intent = Intent(this, MainActivity::class.java)
@@ -48,14 +48,10 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channelName = "test"
             val channel =
-                NotificationChannel("test", channelName, NotificationManager.IMPORTANCE_HIGH)
+                NotificationChannel("testId", "testChannel", NotificationManager.IMPORTANCE_HIGH)
             notificationManager.createNotificationChannel(channel)
         }
-
         notificationManager.notify(0, notificationBuilder.build())
     }
-
-
 }

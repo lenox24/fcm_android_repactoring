@@ -86,8 +86,6 @@ class MainActivity : AppCompatActivity() {
                     Log.d("FCM Log", "getInstanceId failed", it.exception)
                     return@addOnCompleteListener
                 }
-                val token = it.result!!.token
-                Log.d("FCM Log", "FCM 토큰: $token")
             }
 
         topics.add("A")
