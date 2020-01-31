@@ -12,21 +12,27 @@ object Connector {
     private const val url = "https://72183c7f.ngrok.io"
 
     init {
+        // http 인터셉터 설정
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
+
+        // okhttp 클라이언트 빌더
         val client = OkHttpClient.Builder()
             .connectTimeout(1, TimeUnit.MINUTES)
             .addInterceptor(interceptor)
             .build()
 
+        // retrofit 빌더
         retrofit = Retrofit.Builder()
             .baseUrl(url)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
 
+        // api 연결
         api = retrofit.create(API::class.java)
     }
 
+    // 외부에서 api에 접속하기 위한 함수
     fun createApi(): API = retrofit.create(API::class.java)
 }

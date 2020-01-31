@@ -6,15 +6,15 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface API {
-    @GET("/register")
+    @GET("/register")   // token을 서버에 보내기 위한 API
     fun sendToken(@Query("id") id: String, @Query("name") name: String, @Query("deviceToken") deviceToken: String): Call<Void>
 
-    @GET("/topic")
+    @GET("/topic")  // topic을 이용한 알림을 보내는 API
     fun topicNotification(@Query("title") title: String, @Query("body") body: String, @Query("topic") topic: String): Call<Void>
 
-    @GET("/token")
+    @GET("/token")  // token을 이용한 알림을 보내는 API
     fun tokenNotification(@Query("title") title: String, @Query("body") body: String, @Query("id") id: String): Call<Void>
 
-    @GET("/list")
+    @GET("/list")   // token list를 받아오는 API
     fun getTokenList(): Call<JsonArray>
 }
