@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">FCM Test</string>
-    <string name="default_notification_channel_id">Channel ID</string>
-    <string name="default_notification_channel_name" translatable="true">Test</string>
+    <string name="default_notification_channel_id">testId</string>
+    <string name="default_notification_channel_name" translatable="true">testChannel</string>
     <string name="subcha">구독할 채널</string>
     <string name="sub">구독</string>
     <string name="subscribe_topic_list">Subscribe Topic List</string>

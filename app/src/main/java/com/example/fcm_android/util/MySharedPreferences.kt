@@ -27,6 +27,20 @@ class MySharedPreferences(context: Context) {
         get() = prefs.getBoolean("C", false)
         set(value) = prefs.edit().putBoolean("C", value).apply()
 
+    var subNotice: Boolean
+        get() = prefs.getBoolean("notice", false)
+        set(value) = prefs.edit().putBoolean("notice", value).apply()
+
+    // B 구독 상태를 저장할 문자열 변수
+    var subArticle: Boolean
+        get() = prefs.getBoolean("article", false)
+        set(value) = prefs.edit().putBoolean("article", value).apply()
+
+    // C 구독 상태를 저장할 문자열 변수
+    var subComment: Boolean
+        get() = prefs.getBoolean("comment", false)
+        set(value) = prefs.edit().putBoolean("comment", value).apply()
+
     // 회원가입 여부를 저장할 문자열 변수
     var register: Boolean
         get() = prefs.getBoolean("Register", false)

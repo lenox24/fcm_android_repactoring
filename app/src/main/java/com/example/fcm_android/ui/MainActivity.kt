@@ -109,6 +109,9 @@ class MainActivity : AppCompatActivity() {
         topics.add("A")
         topics.add("B")
         topics.add("C")
+        topics.add("NewNotice")
+        topics.add("NewArticle")
+        topics.add("NewComment")
 
         // 서버로부터 Token List 받아오기
         getTokens()

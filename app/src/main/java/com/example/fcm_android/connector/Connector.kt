@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit
 object Connector {
     private var retrofit: Retrofit
     private var api: API
-    private const val url = "https://72183c7f.ngrok.io"
+    private const val url = "https://6bee7c51.ngrok.io"
 
     init {
         // http 인터셉터 설정

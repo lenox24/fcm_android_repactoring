@@ -56,15 +56,24 @@ class RegisterActivity : AppCompatActivity() {
                 }
             }
         }
-
         // 각 버튼에 만들어진 리스너 할당
         btn_a.setOnClickListener(subscribeListener)
         btn_b.setOnClickListener(subscribeListener)
         btn_c.setOnClickListener(subscribeListener)
+
+        btn_notice.setOnCheckedChangeListener { _, isChecked ->
+            App.prefs.subNotice = onSwitch("NewNotice", isChecked)
+        }
+        btn_article.setOnCheckedChangeListener { _, isChecked ->
+            App.prefs.subArticle = onSwitch("NewArticle", isChecked)
+        }
+        btn_comments.setOnCheckedChangeListener { _, isChecked ->
+            App.prefs.subComment = onSwitch("NewComment", isChecked)
+        }
     }
 
     private fun initialize() {
-        // 저장된 상태에 따라 버튼의 문구와 활성화 여부를 변경
+        // 저장된 상태에 따라 버튼의 문구와 활성화 여부를  변경
         if (App.prefs.subA)
             btn_a.text = subT
         if (App.prefs.subB)
@@ -73,6 +82,10 @@ class RegisterActivity : AppCompatActivity() {
             btn_c.text = subT
         if (App.prefs.register)
             btn_register.isEnabled = false
+
+        btn_notice.isChecked = App.prefs.subNotice
+        btn_article.isChecked = App.prefs.subArticle
+        btn_comments.isChecked = App.prefs.subComment
     }
 
     private fun sendToken(id: String, name: String) {
@@ -90,6 +103,19 @@ class RegisterActivity : AppCompatActivity() {
                 }
 
             })
+        }
+    }
+
+    private fun onSwitch(topic: String, isChecked: Boolean): Boolean {
+        return when (isChecked) {
+            true -> {
+                onSubscribe(topic, "sub")
+                false
+            }
+            false -> {
+                onSubscribe(topic, "unsub")
+                true
+            }
         }
     }
 

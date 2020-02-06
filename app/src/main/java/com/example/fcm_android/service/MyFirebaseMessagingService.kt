@@ -6,6 +6,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.example.fcm_android.R
 import com.example.fcm_android.ui.MainActivity
@@ -26,14 +27,17 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     override fun onMessageReceived(message: RemoteMessage) {
         val messageTitle: String
         val messageBody: String
+        Log.d("onMessageReceived", "${message.data}")
 
 
         if (message.notification != null) { // 토큰 알림이 온 경우
             messageTitle = message.notification!!.title.toString()
             messageBody = message.notification!!.body.toString()
+            Log.d("inMessageReceived", "$messageTitle,$messageBody")
         } else {                            // 토픽 알림이 온 경우
             messageTitle = message.data["title"].toString()
             messageBody = message.data["body"].toString()
+            Log.d("inMessageReceived", "$messageTitle,$messageBody")
         }
 
         // 알림을 눌렀을 경우에 메인엑티비티를 띄우기 위한 인텐트
@@ -45,7 +49,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT)
 
         // 알림 내용을 가지고 디바이스에 띄워줄 알림 생성
-        val notificationBuilder = NotificationCompat.Builder(this, "ddd")
+        val notificationBuilder = NotificationCompat.Builder(this, "testId")
             .setContentTitle(messageTitle)
             .setContentText(messageBody)
             .setSmallIcon(R.drawable.ic_launcher_foreground)
