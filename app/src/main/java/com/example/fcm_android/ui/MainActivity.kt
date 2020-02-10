@@ -47,8 +47,8 @@ class MainActivity : AppCompatActivity() {
             val body = edt_body.text.toString()
             val target = listView.selectedItem.toString()
 
-
-            if (flag) { // Topic 알림일 경우
+            if (flag) {
+                // Topic 알림일 경우
                 // Retrofit2 을 이용해 알림 보내기
                 Connector.createApi().topicNotification(title, body, target)
                     .enqueue(object : Callback<Void> {
@@ -60,7 +60,8 @@ class MainActivity : AppCompatActivity() {
                             Log.d("topicNotification-Failure-Throwable", "$t")
                         }
                     })
-            } else {    // Token 알림일 경우
+            } else {
+                // Token 알림일 경우
                 // Retrofit2 을 이용해 알림 보내기
                 Connector.createApi().tokenNotification(title, body, target)
                     .enqueue(object : Callback<Void> {
@@ -141,3 +142,44 @@ class MainActivity : AppCompatActivity() {
         })
     }
 }
+
+/*
+  val option = FirebaseOptions.Builder()
+            .setApplicationId("1:217163938319:android:e4829086ec5d2c3f58c17a")
+            .setApiKey("AIzaSyAV294VFXC9NtunZfN4uPWsyU1Q-9CF2bo")
+            .build()
+
+        val option2 = FirebaseOptions.Builder()
+            .setApplicationId("1:674747678941:android:973f2c855efd01a7b51b34")
+            .setApiKey("AIzaSyBBuiblc2x_aT3IMEZ24IkLwBXETVQ36lg")
+            .build()
+
+        val app = FirebaseApp.initializeApp(this, option, "TestT")
+
+        val app2 = FirebaseApp.initializeApp(this, option2, "TestE")
+
+        FirebaseInstanceId.getInstance(app).instanceId.addOnCompleteListener {
+            if (!it.isSuccessful) { // 실패 시 예외 처리
+                Log.d("FCM Log", "getInstanceId failed", it.exception)
+                return@addOnCompleteListener
+            }
+            Log.d("FCM Token", FirebaseInstanceId.getInstance(app).getToken())
+        }
+        FirebaseInstanceId.getInstance(app2).instanceId.addOnCompleteListener {
+            if (!it.isSuccessful) { // 실패 시 예외 처리
+                Log.d("FCM Log", "getInstanceId failed", it.exception)
+                return@addOnCompleteListener
+            }
+            Log.d("FCM Token", FirebaseInstanceId.getInstance(app2).getToken())
+        }
+
+        app.get(FirebaseMessaging::class.java).subscribeToTopic("p0").addOnCompleteListener {
+            if (!it.isSuccessful)
+                Log.d("Error", it.exception.toString())
+        }
+
+       /* app2.get(FirebaseMessaging::class.java).subscribeToTopic("p1999").addOnCompleteListener {
+            if (!it.isSuccessful)
+                Log.d("Error", it.exception.toString())
+        }*/
+ */

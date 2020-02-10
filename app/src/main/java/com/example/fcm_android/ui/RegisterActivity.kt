@@ -83,9 +83,9 @@ class RegisterActivity : AppCompatActivity() {
         if (App.prefs.register)
             btn_register.isEnabled = false
 
-        btn_notice.isChecked = App.prefs.subNotice
-        btn_article.isChecked = App.prefs.subArticle
-        btn_comments.isChecked = App.prefs.subComment
+        btn_notice.isChecked = !App.prefs.subNotice
+        btn_article.isChecked = !App.prefs.subArticle
+        btn_comments.isChecked = !App.prefs.subComment
     }
 
     private fun sendToken(id: String, name: String) {
