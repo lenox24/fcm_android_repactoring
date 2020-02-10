@@ -61,6 +61,7 @@ class RegisterActivity : AppCompatActivity() {
         btn_b.setOnClickListener(subscribeListener)
         btn_c.setOnClickListener(subscribeListener)
 
+        // 스위치를 눌렀을 경우 헤당하는 이벤트 발생
         btn_notice.setOnCheckedChangeListener { _, isChecked ->
             App.prefs.subNotice = onSwitch("NewNotice", isChecked)
         }
@@ -83,9 +84,9 @@ class RegisterActivity : AppCompatActivity() {
         if (App.prefs.register)
             btn_register.isEnabled = false
 
-        btn_notice.isChecked = !App.prefs.subNotice
-        btn_article.isChecked = !App.prefs.subArticle
-        btn_comments.isChecked = !App.prefs.subComment
+        btn_notice.isChecked = App.prefs.subNotice
+        btn_article.isChecked = App.prefs.subArticle
+        btn_comments.isChecked = App.prefs.subComment
     }
 
     private fun sendToken(id: String, name: String) {
@@ -93,12 +94,12 @@ class RegisterActivity : AppCompatActivity() {
         val deviceToken: String = App.prefs.myToken
 
         if (deviceToken != "") {    // 저장된 Token 이 있는 경우
-            Connector.createApi().sendToken(id, name, deviceToken).enqueue(object : Callback<Void> {
-                override fun onFailure(call: Call<Void>, t: Throwable) {
+            Connector.createApi().sendToken(id, name, deviceToken).enqueue(object : Callback<Void> {    // Token을 서버에 전송
+                override fun onFailure(call: Call<Void>, t: Throwable) {    // 실패한 경우 로그
                     Log.d("sendToken-Failure-Throwable", "$t")
                 }
 
-                override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                override fun onResponse(call: Call<Void>, response: Response<Void>) {   // 성공한 경우 로그
                     Log.d("sendToken-ResponseBody", "${response.code()}")
                 }
 
@@ -107,14 +108,15 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun onSwitch(topic: String, isChecked: Boolean): Boolean {
+        // 알림 설정 스위치 체크 여부에 따라서
         return when (isChecked) {
-            true -> {
-                onSubscribe(topic, "sub")
-                false
+            true -> {   // 구독 활성화를 했을 경우
+                onSubscribe(topic, "sub")   //구독
+                true   // SharedPReference 에 저장할 상태값 반환
             }
-            false -> {
-                onSubscribe(topic, "unsub")
-                true
+            false -> {  // 비구독 활성화를 했을 경우
+                onSubscribe(topic, "unsub") //구독 해제
+                false   // SharedPReference 에 저장할 상태값 반환
             }
         }
     }
